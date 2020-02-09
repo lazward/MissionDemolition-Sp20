@@ -7,6 +7,13 @@ public class Slingshot : MonoBehaviour
 
     public GameObject launchPoint ;
 
+    public GameObject prefabProjectile ;
+    public bool ______ ;
+
+    public Vector3 launchPos ;
+    public GameObject projectile ;
+    public bool aimingMode ;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +43,16 @@ public class Slingshot : MonoBehaviour
         Transform launchPointTrans = transform.Find("LaunchPoint") ;
         launchPoint = launchPointTrans.gameObject ;
         launchPoint.SetActive(false) ;
+        launchPos = launchPointTrans.position ;
+
+    }
+    
+    void OnMouseDown() {
+
+        aimingMode = true ;
+        projectile = Instantiate(prefabProjectile)as GameObject ;
+        projectile.transform.position = launchPos ;
+        projectile.GetComponent<Rigidbody>().isKinematic = true ;
 
     }
 
