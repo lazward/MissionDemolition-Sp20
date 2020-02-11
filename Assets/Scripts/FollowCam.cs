@@ -19,18 +19,31 @@ public class FollowCam : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
+        Vector3 destination ;
         if (pointOfInterest == null) {
 
-            return ;
+            destination = Vector3.zero ;
+
+        } else {
+
+            destination = pointOfInterest.transform.position ;
+
+            if (pointOfInterest.tag == "Projectile") {
+
+                if (pointOfInterest.GetComponent<Rigidbody>().IsSleeping()) {
+
+                    pointOfInterest = null ;
+                    return ;
+
+                }
+
+            }
 
         }
 
-        Vector3 destination = pointOfInterest.transform.position ;
         destination.x = Mathf.Max(minXY.x, destination.x) ;
         destination.y = Mathf.Max(minXY.y, destination.y) ;
         destination = Vector3.Lerp(transform.position, destination, easing) ;
