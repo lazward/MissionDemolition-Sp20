@@ -16,6 +16,8 @@ public class Slingshot : MonoBehaviour
 
     public float velocityMult = 4f ;
 
+    static private Slingshot S ;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +55,7 @@ public class Slingshot : MonoBehaviour
             aimingMode = false ;
             projectile.GetComponent<Rigidbody>().isKinematic = false ;
             projectile.GetComponent<Rigidbody>().velocity = -mouseDelta * velocityMult ;
-            FollowCam.S.pointOfInterest = projectile ;
+            FollowCam.pointOfInterest = projectile ;
             projectile = null ;
 
         }
@@ -75,6 +77,7 @@ public class Slingshot : MonoBehaviour
 
     void Awake() {
 
+        S = this;
         Transform launchPointTrans = transform.Find("LaunchPoint") ;
         launchPoint = launchPointTrans.gameObject ;
         launchPoint.SetActive(false) ;
@@ -89,6 +92,21 @@ public class Slingshot : MonoBehaviour
         projectile.transform.position = launchPos ;
         projectile.GetComponent<Rigidbody>().isKinematic = true ;
 
+    }
+
+    static public Vector3 LAUNCH_POS {
+
+        get {
+
+            if (S == null) {
+
+                return Vector3.zero ;
+
+            } 
+
+            return S.launchPos ;
+
+        }
     }
 
 }

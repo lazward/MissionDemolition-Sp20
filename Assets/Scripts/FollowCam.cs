@@ -8,7 +8,7 @@ public class FollowCam : MonoBehaviour
     static public FollowCam S ;
     public bool ___ ;
 
-    public GameObject pointOfInterest ;
+    static public GameObject pointOfInterest ;
     public float camZ ;
 
     public float easing = 0.05f ;
